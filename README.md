@@ -1,5 +1,7 @@
 # Weather_Forcatsing-App
 
+# Live link: https://eloquent-pegasus-3006d6.netlify.app/
+
 # The weather forcasting app which will give the information of weather along with the temperature and humidity for the next 7 days by city name.
 # the city name coud be anywhere in the world it will give the result as well as provide the map so that the user who is giving his information by providing the city name can easily search his/her location by using that map.
 
