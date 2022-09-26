@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}
+    .mapouter{position:relative;text-align:right;height:500px;width:600px;}
+
+    #cont{
+        display: flex;
+        gap:20px;
+        border: 1px solid red;
+    }
+    </style>
+</head>
+<body>
+    
+<input type="text" id="query" placeholder="city name">
+<button onclick="getData()" >Search</button>
+<h1>7 days forcast</h1>
+<div id="cont">
+    
+
+    
+
+</div>
+<div class="mapouter">
+    <div class="gmap_canvas">
+        <iframe width="600" 
+        height="500" 
+        id="gmap_canvas"  
+        frameborder="0" 
+        scrolling="no" 
+        marginheight="0" 
+        marginwidth="0">
+
+        </iframe>
+        <!-- <a href="https://putlocker-is.org">putlocker</a> -->
+        <br>
+        <style>
+        
+        </style>
+        <!-- <a href="https://www.embedgooglemap.net">how to add google maps to website</a> -->
+        
+        </div></div>
+
+</body>
+</html>
+
+
+<script>
+
+//https://api.openweathermap.org/data/2.5/weather?q=ranchi&appid=caf5884c2523b502b04f14a9a8be4016
+
+function getData()
+{
+    let city=document.getElementById("query").value;
+
+    let url= `https://api.openweathermap.org/data/2.5/forecast?q=${city}&id=524901&cnt=7&appid=caf5884c2523b502b04f14a9a8be4016`;
+    fetch(url).then(function(res){
+        return res.json();
+        
+    }).then(function(res){
+        console.log(res)
+        append(res);
+    })
+}
+
+function append(data)
+{
+    let url=`https://maps.google.com/maps?q=${data.city.name}&t=&z=13&ie=UTF8&iwloc=&output=embed`
+    let container=document.getElementById("cont");
+    container.innerHTML=""
+    let h2=document.createElement("h2");
+    h2.innerText=data.city.name;
+    let count=data.list;
+    container.append(h2);
+    count.forEach(function(el){
+        let temp=document.createElement("p");
+         temp.innerText= `Temp:- ${Math.round(el.main.temp-273)}`;
+         let weath=el.weather;
+         let weather=document.createElement("p");
+         weather.innerText=weath[0].main;
+         container.append(temp,weather);
+         let iframe=document.getElementById("gmap_canvas");
+         iframe.src=url;
+    })
+    
+  
+}
+
+</script>
